@@ -1,22 +1,16 @@
 #!/usr/bin/python3
 
 from concurrent.futures import thread
-import os.path
+import os
 from pickle import NONE
 import sys
 import serial
 import json
-import time
 import numpy as np
-import array
 import utils
 
-savelog = False
-logline = 0
-file = None
-fileName = ""
-filter_status = None
-add_time_stamp=None
+fd=None
+ser=None
 
 def find_match_str(need_matched_str, data_buf):
     for tmp in need_matched_str:
@@ -25,14 +19,18 @@ def find_match_str(need_matched_str, data_buf):
             return 1
     return 0
 
-
-if __name__ == "__main__":
+def app_run():
+    global fd,ser
     with open("./config.json", 'r') as f:
         data = json.load(f)
         savelog = data['log']['savelog']
         logline = data['log']['logline']
         filter_status = data['filter']['filter_is_open']
         add_time_stamp = data['add_time_stamp']
+        savelog_path=data['log']['savelog_path_dir']
+        if os.path.exists(savelog_path) == False:
+            print("savelog_path don't exist")
+            sys.exit(1)
     if savelog == True:
         loglineTmp = logline
 
@@ -49,12 +47,27 @@ if __name__ == "__main__":
                 print(tmpStr, end="")
         else:
             print(tmpStr, end="")
+        if savelog == True:
+            if loglineTmp == logline:
+                fileName = savelog_path+"/"+time_stamp_str+".log"
+                if fd != None:
+                    fd.close()
+            if fd == None:
+                fd = open(fileName,'a')
+            loglineTmp = loglineTmp-1
+            fd.write(tmpStr)
+            if loglineTmp <= 0:
+                loglineTmp = logline
+                fd.close()
+                fd=None
 
-        # if savelog == True:
-        #     if loglineTmp == logline:
-        #         fileName = time_stamp_str+".log"
-        #         print(fileName)
-        #     loglineTmp = loglineTmp-1
-        #     if loglineTmp <= 0:
-        #         loglineTmp = logline
+if __name__ == "__main__":
+    try:
+        app_run()
+    except KeyboardInterrupt:
+        if ser != None:
+            ser.close()
+        if fd != None:
+            fd.close()
+        print("safe quit")
 

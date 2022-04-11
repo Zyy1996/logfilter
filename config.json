@@ -10,7 +10,7 @@
     },
     "add_time_stamp":true,
     "filter":{
-        "filter_is_open":true,
+        "filter_is_open":false,
         "Filter_field_groups":"Motor_tracking",
         "Motor_tracking":[
             "find people",
@@ -26,6 +26,7 @@
     },
     "log":{
         "savelog":true,
-        "logline":25000
+        "logline":5000,
+        "savelog_path_dir":"/home/zyy/worksapce/serial_python/logfilter"
     }
 }
