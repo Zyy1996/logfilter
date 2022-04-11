@@ -8,6 +8,7 @@
             "find people":"dfdfdf"
         }
     },
+    "add_time_stamp":true,
     "filter":{
         "filter_is_open":true,
         "Filter_field_groups":"Motor_tracking",
@@ -19,9 +20,11 @@
             "postition.x:",
             "md_count:",
             "[imi_api_ptz_prop_set][312]"
+        ],
+        "test":[
         ]
     },
-    "logsave":{
+    "log":{
         "savelog":true,
         "logline":25000
     }
