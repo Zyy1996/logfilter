@@ -1,0 +1,28 @@
+{
+    "serial_port":"/dev/ttyUSB0",
+    "serial_baud_rate":"115200",
+    "hightlight_key_words":{
+        "hightlight_is_open":true,
+        "Highlight_Field_Group":"Motor_tracking",
+        "Motor_tracking":{
+            "find people":"dfdfdf"
+        }
+    },
+    "filter":{
+        "filter_is_open":true,
+        "Filter_field_groups":"Motor_tracking",
+        "Motor_tracking":[
+            "find people",
+            "rotate =",
+            "zyy test:",
+            "send zuo biao",
+            "postition.x:",
+            "md_count:",
+            "[imi_api_ptz_prop_set][312]"
+        ]
+    },
+    "logsave":{
+        "savelog":true,
+        "logline":25000
+    }
+}
